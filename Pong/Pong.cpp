@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <stdlib.h>     /* srand, rand */
 #include <iostream>
+#include <time.h>
 using namespace std;
 
 
@@ -152,16 +153,115 @@ public:
 		o << "Paddle [" << c.x << "," << c.y << "]";
 		return o;
 
+/*
+		cBall c(0, 0);
+		cout << c << endl;
+		c.randomDirection();
+		cout << c << endl;
+		c.Move();
+		cout << c << endl;
+		c.randomDirection();
+		c.Move();
+		cout << c << endl;
+
+		*/
+	}
+};
+
+
+
+class cGameManager
+{
+private:
+	int width, height;
+	int score1, score2;
+	char up1, down1, up2, down2;
+	bool quit;
+	cBall * ball;
+	cPaddle * player1;
+	cPaddle * player2;
+public:
+	cGameManager(int h, int w)
+	{
+		srand(time(NULL));
+		quit = false;
+		up1 = 'w'; down1 = 'i';
+		down1 = 's'; down2 = 'k';
+		score1 = score2 = 0;
+		width = w; height = h;
+		ball = new cBall(w / 2, h / 2);
+		player1 = new cPaddle(1, h / 2 - 3);
+		player2 = new cPaddle(w - 2, h / 2 - 3);
+
+
 
 
 	}
+	~cGameManager()
+	{
+		delete ball, player1, player2;
+
+
+	}
+	void ScoreUp(cPaddle * player)
+	{
+
+		if (player == player1)
+		{
+			score1++;
+		}
+		else if (player == player2)
+		{
+			score2++;
+		}
+
+		ball->Reset();
+		player1->Reset();
+		player2->Reset();
+
+		
+	}
+
+	void Draw()
+{
+	system("cls");
+
+	for (int i = 0; i < width + 2; i++)
+	{
+
+		cout << '#';
+	}
+	for (int i = 0; i < width + 2; i++)
+	{
+		cout << '#';
+
+	}
+
+
+}
+
+
 };
 
 
 int main()
 {
 
-	
+	cGameManager c(40, 20);
+	c.Draw();
+	return 0;
+
+	cPaddle p1(0, 0);
+	cPaddle p2(10, 0);
+	cout << p1 << endl;
+	cout << p2 << endl;
+	p1.moveUp();
+	p2.moveDown();
+	cout << p1 << endl;
+	cout << p2 << endl;
+
+
+
 
 
 
